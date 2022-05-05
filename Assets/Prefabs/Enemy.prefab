@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 3556246222835042457}
   - component: {fileID: 3556246222835042456}
   - component: {fileID: 3556246222835042459}
+  - component: {fileID: 1349471771136202641}
   - component: {fileID: 3556246222835042463}
+  - component: {fileID: 3467573175231101879}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -116,11 +118,25 @@ MonoBehaviour:
   TilesToCorrupt: {fileID: 0}
   RedGrass: {fileID: 0}
   GreenGrass: {fileID: 0}
-  MoveSpeed: 5
   Damage: 5
-  MaxHealth: 4
-  Health: 0
   GoldAmount: 1
+  XpAmount: 1
+--- !u!114 &1349471771136202641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556246222835042458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a89a0540d7a81a43ad492d259bdbb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 5
+  MovementEnabled: 1
+  MoveAngle: 0
+  IsMoving: 1
 --- !u!50 &3556246222835042463
 Rigidbody2D:
   serializedVersion: 4
@@ -142,3 +158,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3467573175231101879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556246222835042458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa59e2cffa966774280d32ee7516a700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHealth: 4
+  MaxHealth: 4
+  IsDead: 0
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3556246222835042459}
+        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
+        m_MethodName: Kill
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

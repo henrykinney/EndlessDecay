@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public float EnemySpawnSpeed;
+    public float EnemyHealthMult;
     public GameObject PrefabToSpawn;
     float EnemySpawnTime;
     public float SpawnRadius;
@@ -29,5 +30,6 @@ public class EnemySpawner : MonoBehaviour
         float angle = Random.Range(0, Mathf.PI * 2);
         
         newthing.transform.position = new Vector3(Mathf.Cos(angle) * SpawnRadius, Mathf.Sin(angle) * SpawnRadius, 0) + gameObject.transform.position;
+        newthing.GetComponent<Health>().MaxHealth *= EnemyHealthMult;
     }
 }

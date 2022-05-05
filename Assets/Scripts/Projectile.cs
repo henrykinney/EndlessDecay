@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
 
         }
         //Destroy(enemy);
-        enemy.GetComponent<EnemyMovement>().DealDamage(Damage);
+        enemy.GetComponent<Health>().TakeDamage(Damage);
         
     }
     void OnTriggerEnter2D(Collider2D enemy) {

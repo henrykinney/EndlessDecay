@@ -6,9 +6,20 @@ using UnityEngine.Events;
 [System.Serializable]
 public class ShopItem
 {
-    [SerializeField]
+    public float BaseCost;
     public float Cost;
-    [SerializeField]
+    public float CostMult;
     public string Name;
+    public int AmountBought;
     public UnityEvent BoughtEvent;
+    public string GetButtonText() {
+        return Name + ": " + Mathf.CeilToInt(Cost) + " Gold";
+    }
+    public void Buy() {
+        AmountBought += 1;
+        Cost = BaseCost * Mathf.Pow(CostMult, AmountBought);
+    }
+    public void Initialize() {
+        Cost = BaseCost;
+    }
 }

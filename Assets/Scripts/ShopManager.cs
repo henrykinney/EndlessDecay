@@ -17,12 +17,13 @@ public class ShopManager : MonoBehaviour
     {
         int i = 0;
         foreach (ShopItem v in ShopItems) {
+            v.Initialize();
             GameObject newbutton = Instantiate(StatButtonPrefab);
             newbutton.transform.SetParent(ShopPanel.transform);
             newbutton.transform.localPosition = new Vector3(0, 150 - i * ShopButtonSpacing, 0);
             newbutton.transform.localScale = new Vector3(5, 1, 1);
-            newbutton.transform.GetChild(0).gameObject.GetComponent<Text>().text = v.Name + ": " + v.Cost + " Gold";
-            newbutton.GetComponent<Button>().onClick.AddListener(delegate{BuyUpgrade(v);});
+            newbutton.transform.GetChild(0).gameObject.GetComponent<Text>().text = v.GetButtonText();
+            newbutton.GetComponent<Button>().onClick.AddListener(delegate{BuyUpgrade(v, newbutton);});
             i++;
         }
     }
@@ -35,10 +36,12 @@ public class ShopManager : MonoBehaviour
     public void OpenShop() {
         ShopPanel.SetActive(!ShopPanel.activeSelf);
     }
-    public void BuyUpgrade(ShopItem Upgrade) { // make this work with the onclick event!!!
+    public void BuyUpgrade(ShopItem Upgrade, GameObject Button) {
         if (GameObject.Find("Player").GetComponent<PlayerStats>().Gold >= Upgrade.Cost) {
             Upgrade.BoughtEvent.Invoke();
             GameObject.Find("Player").GetComponent<PlayerStats>().AddGold(-Upgrade.Cost);
+            Upgrade.Buy();
+            Button.transform.GetChild(0).gameObject.GetComponent<Text>().text = Upgrade.GetButtonText();
         }
     }
     
