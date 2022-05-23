@@ -36,19 +36,27 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\StatsHUD.cs" />
+     <Compile Include="Assets\Scripts\FollowCamera.cs" />
+     <Compile Include="Assets\Scripts\UpgradesManager.cs" />
      <Compile Include="Assets\Scripts\PlayerStats.cs" />
+     <Compile Include="Assets\Scripts\WaveManager.cs" />
+     <Compile Include="Assets\Scripts\ModifierBank.cs" />
      <Compile Include="Assets\Scripts\ShopManager.cs" />
+     <Compile Include="Assets\Scripts\WeaponStatInfo.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+     <Compile Include="Assets\Scripts\EnemyRamper.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
      <Compile Include="Assets\Scripts\TerrainScript.cs" />
-     <Compile Include="Assets\Scripts\Weapon.cs" />
-     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
-     <Compile Include="Assets\Scripts\ShopItem.cs" />
-     <Compile Include="Assets\Scripts\StatsHUD.cs" />
      <Compile Include="Assets\Scripts\CharacterMovement.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
-     <Compile Include="Assets\Scripts\EnemyRamper.cs" />
+     <Compile Include="Assets\Scripts\Weapon.cs" />
+     <Compile Include="Assets\Scripts\WeaponUpgrades.cs" />
+     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
+     <Compile Include="Assets\Scripts\ShopItem.cs" />
+     <Compile Include="Assets\Scripts\Wave.cs" />
+     <Compile Include="Assets\Scripts\StartGame.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

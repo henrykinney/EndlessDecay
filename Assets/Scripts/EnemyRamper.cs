@@ -16,7 +16,6 @@ public class EnemyRamper : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        spawner.EnemySpawnSpeed += SpawnSpeedRamp * Time.fixedDeltaTime;
-        spawner.EnemyHealthMult += HealthMultRamp * Time.fixedDeltaTime;
+        
     }
 }

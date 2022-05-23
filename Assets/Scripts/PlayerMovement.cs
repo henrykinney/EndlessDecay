@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     CharacterMovement charmovement;
     Health hp;
+    public PlayerStats plrstats;
     public Tilemap TilesToCorrupt;
     public TileBase RedGrass;
     public TileBase GreenGrass;
@@ -18,12 +19,15 @@ public class PlayerMovement : MonoBehaviour
     TextMeshProUGUI healthmeter;
     float RespawnTime;
     public GameObject EquippedWeapon;
+    public GameObject WeaponHolder;
+    public UnityEvent OnWeaponEquipped;
     
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         charmovement = gameObject.GetComponent<CharacterMovement>();
         hp = gameObject.GetComponent<Health>();
+        plrstats = gameObject.GetComponent<PlayerStats>();
         EnemyCollidingDamage = 0;
         healthmeter = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
         RespawnTime = 0;
@@ -42,10 +46,21 @@ public class PlayerMovement : MonoBehaviour
                 float moveangle = Vector2.SignedAngle(new Vector2(1, 0), movedirection);
                 moveangle = moveangle * Mathf.PI / 180;
                 charmovement.MoveAngle = moveangle;
+                
             }
             Currupt();
         }
+        
+        Vector3 targetpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetpos -= gameObject.transform.position;
+        float targetangle = Vector2.SignedAngle(new Vector2(1, 0), new Vector2(targetpos.x, targetpos.y));
+        
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, targetangle);
+            
         if (EquippedWeapon != null) {
+            targetangle = targetangle * Mathf.PI / 180;
+            EquippedWeapon.GetComponent<Weapon>().FireAngle = targetangle;
+
             if (MovementEnabled) {
                 EquippedWeapon.GetComponent<Weapon>().IsFiring = Input.GetButton("Fire1");
             }
@@ -64,6 +79,27 @@ public class PlayerMovement : MonoBehaviour
                 RespawnPlayer();
             }
         }
+    }
+    public void UpdateWeaponStats(GameObject weapon) {
+        weapon.GetComponent<Weapon>().DamageModifiers.AddModifier(plrstats.WeaponDamageMult, gameObject, "PlayerStatBonus");
+        weapon.GetComponent<Weapon>().FireRateModifiers.AddModifier(plrstats.WeaponFireRateMult, gameObject, "PlayerStatBonus");
+        weapon.GetComponent<Weapon>().PierceModifiers.AddModifier(plrstats.WeaponPierceMult, gameObject, "PlayerStatBonus");
+    }
+    public GameObject GetEquippedWeapon() {
+        return EquippedWeapon;
+    }
+    public void EquipWeapon(GameObject weapon) {
+        EquippedWeapon.transform.SetParent(null);
+        EquippedWeapon.transform.position += new Vector3(0, 2, 0);
+        EquippedWeapon.GetComponent<Weapon>().IsFiring = false;
+        EquippedWeapon.GetComponent<Weapon>().RemoveModfiersFrom(gameObject);
+        EquippedWeapon = weapon;
+        weapon.transform.SetParent(WeaponHolder.transform);
+        weapon.transform.localPosition = new Vector3(0, 0, 0);
+        weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        UpdateWeaponStats(weapon);
+        
+        OnWeaponEquipped.Invoke();
     }
     public void Kill() {
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -89,6 +125,12 @@ public class PlayerMovement : MonoBehaviour
         
         if (enemy.gameObject.tag == "Enemy") {
             EnemyCollidingDamage += enemy.gameObject.GetComponent<EnemyMovement>().Damage;
+        }
+        
+    }
+    void OnTriggerEnter2D(Collider2D trigger) {
+        if (trigger.gameObject.layer == 8) {
+            EquipWeapon(trigger.gameObject);
         }
     }
     void OnCollisionExit2D(Collision2D enemy) {

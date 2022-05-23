@@ -14,6 +14,8 @@ public class EnemyMovement : MonoBehaviour
     public float Damage;
     public float GoldAmount;
     public float XpAmount;
+    public float WeaponDropChance;
+    public List<GameObject> WeaponDropList;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +34,13 @@ public class EnemyMovement : MonoBehaviour
         //Currupt();
     }
     public void Kill() {
-        Destroy(gameObject);
+        
         GameObject.Find("Player").GetComponent<PlayerStats>().AddGold(GoldAmount);
         GameObject.Find("Player").GetComponent<PlayerStats>().AddXp(XpAmount);
+        if (Random.Range(0f, 1f) < WeaponDropChance) {
+            GameObject newdrop = Instantiate(WeaponDropList[Random.Range(0, WeaponDropList.Count)]);
+            newdrop.transform.position = gameObject.transform.position;
+        }
+        Destroy(gameObject);
     }
 }

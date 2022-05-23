@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lifespan: 5
-  Pierce: 10
+  Pierce: 100
   Damage: 1
 --- !u!58 &2708176746346654598
 CircleCollider2D:

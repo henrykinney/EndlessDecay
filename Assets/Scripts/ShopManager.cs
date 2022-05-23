@@ -33,8 +33,11 @@ public class ShopManager : MonoBehaviour
     {
         
     }
-    public void OpenShop() {
+    public void ToggleShop() {
         ShopPanel.SetActive(!ShopPanel.activeSelf);
+    }
+    public void CloseShop() {
+        ShopPanel.SetActive(false);
     }
     public void BuyUpgrade(ShopItem Upgrade, GameObject Button) {
         if (GameObject.Find("Player").GetComponent<PlayerStats>().Gold >= Upgrade.Cost) {

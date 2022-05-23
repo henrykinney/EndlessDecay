@@ -14,16 +14,20 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         RemainingLifespan = Lifespan;
-        RemainingPierce = Pierce;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         RemainingLifespan -= Time.deltaTime;
         if (RemainingLifespan <= 0) {
             Destroy(gameObject);
         }
+    }
+    public void SetPierce(int v) {
+        Pierce = v;
+        RemainingPierce = v;
     }
     void OnHitEnemy(GameObject enemy) {
         RemainingPierce -= 1;

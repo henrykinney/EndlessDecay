@@ -121,6 +121,10 @@ MonoBehaviour:
   Damage: 5
   GoldAmount: 1
   XpAmount: 1
+  WeaponDropChance: 0.005
+  WeaponDropList:
+  - {fileID: 1961534680617529773, guid: 7a5720e23d1b16745828946cd5746bb2, type: 3}
+  - {fileID: 3154125722818556128, guid: f7ac569a4b1b085479baca2dbe646e28, type: 3}
 --- !u!114 &1349471771136202641
 MonoBehaviour:
   m_ObjectHideFlags: 0

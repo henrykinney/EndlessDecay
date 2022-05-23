@@ -5,6 +5,10 @@ using UnityEngine.Events;
 using TMPro;
 public class PlayerStats : MonoBehaviour
 {
+    PlayerMovement plrmovement;
+    public float WeaponDamageMult;
+    public float WeaponPierceMult;
+    public float WeaponFireRateMult;
     public float Gold;
     public float Xp;
     public float MaxXp;
@@ -18,10 +22,10 @@ public class PlayerStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        plrmovement = gameObject.GetComponent<PlayerMovement>();
         goldtext = GameObject.Find("GoldText").GetComponent<TextMeshProUGUI>();
         xptext = GameObject.Find("XpText").GetComponent<TextMeshProUGUI>();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -45,5 +49,17 @@ public class PlayerStats : MonoBehaviour
         Gold += value;
         OnGoldChanged.Invoke();
         
+    }
+    public void AddDamage(float value) {
+        WeaponDamageMult += value;
+        plrmovement.UpdateWeaponStats(plrmovement.EquippedWeapon);
+    }
+    public void AddPierce(float value) {
+        WeaponPierceMult += value;
+        plrmovement.UpdateWeaponStats(plrmovement.EquippedWeapon);
+    }
+    public void AddFireRate(float value) {
+        WeaponFireRateMult += value;
+        plrmovement.UpdateWeaponStats(plrmovement.EquippedWeapon);
     }
 }
